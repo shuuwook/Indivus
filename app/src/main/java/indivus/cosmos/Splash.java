@@ -5,5 +5,4 @@ package indivus.cosmos;
  */
 
 public class Splash {
-    public
 }
