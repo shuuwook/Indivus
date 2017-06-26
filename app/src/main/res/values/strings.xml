@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">cosmos</string>
+    <string name="selection_home_feed">Home Feed</string>
+    <string name="selection_explorer">Explorer</string>
+    <string name="selection_notifiy">Notify</string>
+    <string name="selection_my_space">My Space</string>
+</resources>
