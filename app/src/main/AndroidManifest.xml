@@ -11,7 +11,6 @@
         android:theme="@style/AppTheme">
         <!-- splash -->
         <activity android:name=".Splash" android:theme="@style/NoTitle"/>
-        
         <activity android:name="indivus.cosmos.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
