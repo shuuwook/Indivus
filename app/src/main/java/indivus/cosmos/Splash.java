@@ -14,7 +14,7 @@ public class Splash extends Activity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.splash_in);
+        setContentView(R.layout.splash);
 
         Handler hd = new Handler();
         hd.postDelayed(new Runnable() {
