@@ -11,15 +11,12 @@ import android.widget.FrameLayout;
 
 public class MainActivity extends AppCompatActivity {
 
-    FrameLayout main_container;
     BottomNavigationView bottom_nav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        main_container = (FrameLayout)findViewById(R.id.main_container);
 
         bottom_nav = (BottomNavigationView)findViewById(R.id.bottom_navigation);
         BottomNavigationViewHelper.disableShiftMode(bottom_nav);
