@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <!-- splash -->
         <activity android:name=".Splash"
             android:theme="@style/SplashTheme">
@@ -18,12 +19,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- login -->
         <activity android:name=".Login"
             android:theme="@android:style/Theme.NoTitleBar">
 
 
         </activity>
+        <!-- signup -->
+        <activity android:name=".SignUpActivity"
+            android:theme="@android:style/Theme.NoTitleBar">
 
+        </activity>
+        <activity android:name=".SelectMainKeycards"
+            android:theme="@android:style/Theme.NoTitleBar">
+
+        </activity>
+
+        <!-- MainActivity -->
         <activity android:name="indivus.cosmos.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
