@@ -11,9 +11,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="122dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="62dp"
+        app:layout_constraintVertical_bias="0.15"
         />
     <Button
         android:id="@+id/select_main_keycards_mainkey_a"
@@ -21,6 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/select_main_keycards_choosekeycard"
+        android:layout_marginTop="62dp"
         app:layout_constraintRight_toLeftOf="@+id/select_main_keycards_mainkey_b"
         android:layout_marginRight="13dp"
         />
@@ -30,6 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/select_main_keycards_choosekeycard"
+        android:layout_marginTop="62dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="13dp"
         app:layout_constraintRight_toRightOf="parent"
@@ -43,6 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/select_main_keycards_choosekeycard"
+        android:layout_marginTop="62dp"
         app:layout_constraintLeft_toRightOf="@+id/select_main_keycards_mainkey_b"
         android:layout_marginLeft="13dp"
         />
