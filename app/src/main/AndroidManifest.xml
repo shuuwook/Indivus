@@ -9,6 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <!-- splash -->
+        <activity android:name=".Splash"
+            android:theme="@android:style/Theme.NoTitleBar">
+
+
+        </activity>
+        <activity android:name=".Login"
+            android:theme="@android:style/Theme.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
         <activity android:name="indivus.cosmos.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
