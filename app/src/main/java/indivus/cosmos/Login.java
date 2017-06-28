@@ -10,7 +10,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Objects;
+
+import indivus.cosmos.presenter.LoginPresenter;
 
 /**
  * Created by Administrator on 2017-06-27.
@@ -18,64 +19,57 @@ import java.util.Objects;
 
 public class Login extends Activity {
 
-    EditText login_email;
-    EditText login_pw;
-    Button login_login_btn;
-    Button login_sign_up_btn;
-    String lEmail, lPw;
+    EditText email_edit;
+    EditText password_edit;
+
+    Button login_btn;
+    Button login_facebook_btn;
+    Button sign_up_btn;
+
+    LoginPresenter login_presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        setTheme(R.style.AppTheme);
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_1);
-        //startActivity(new Intent(this, Splash.class)); //splash
+        setContentView(R.layout.login);
+        startActivity(new Intent(this, Splash.class)); //splash
 
-        //임시 유저 데이터
-        final String email = "caying";
-        final String pw = "qwer";
+        email_edit = (EditText)findViewById(R.id.login_email_edit);
+        password_edit = (EditText)findViewById(R.id.login_password_edit);
 
+        login_btn = (Button)findViewById(R.id.login_btn);
+        login_facebook_btn = (Button)findViewById(R.id.login_facebook_btn);
+        sign_up_btn = (Button)findViewById(R.id.signup_btn);
 
-        login_email = (EditText) findViewById(R.id.login_email_tx);
-        login_pw = (EditText) findViewById(R.id.login_pw_tx);
-        login_login_btn = (Button) findViewById(R.id.login_login_btn);
-        login_sign_up_btn = (Button) findViewById(R.id.login_signup_btn);
+        login_presenter = new LoginPresenter();
 
+        login_btn.setOnClickListener(new View.OnClickListener() {
+            boolean result;
+            String email = email_edit.getText().toString();
+            String password = password_edit.getText().toString();
 
-        //로그인 버튼
-        login_login_btn.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View view) {
-                lEmail = login_email.getText().toString();
-                lPw = login_pw.getText().toString();
-
-                if (lEmail.equals(email) && lPw.equals(pw)) {
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
+            public void onClick(View v) {
+                result = login_presenter.tryLogin(email, password);
+                //login success
+                if(result){
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class)); //main 화면
                     finish();
                 }
+                //login fail
                 else{
-                    Toast toast = Toast.makeText(Login.this, "이메일이나 비밀번호가 틀렸습니다", Toast.LENGTH_SHORT);
-                    toast.show();
+                    Toast.makeText(getApplicationContext(), "아이디 또는 비밀번호가 잘못 되었습니다", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        //Sign Up 버튼
-        login_sign_up_btn.setOnClickListener(new View.OnClickListener(){
+        sign_up_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
-                startActivity(intent);
-                onPause();
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), SignUpActivity.class));
             }
         });
 
-
-
-
-
-   }
+    }
 
 }

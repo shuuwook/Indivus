@@ -5,5 +5,5 @@ package indivus.cosmos.model.server;
  */
 
 public class LoginResult {
-    String message;
+    public String message;
 }

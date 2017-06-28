@@ -3,12 +3,12 @@ package indivus.cosmos;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import indivus.cosmos.model.data.CardList;
 import indivus.cosmos.presenter.HomeAdapter;
 
 /**
@@ -17,9 +17,11 @@ import indivus.cosmos.presenter.HomeAdapter;
 
 public class CurationFragment extends Fragment {
 
-    RecyclerView recycler_view;
+    VerticalViewPager view_pager;
     HomeAdapter adapter;
-    RecyclerView.LayoutManager layout_manager;
+    FragmentManager fragment_manager;
+
+    CardList card_list;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,13 +34,14 @@ public class CurationFragment extends Fragment {
 
         View curation_view = inflater.inflate(R.layout.fragement_curation, container, false);
 
-        layout_manager = new LinearLayoutManager(curation_view.getContext());
-        recycler_view = (RecyclerView)curation_view.findViewById(R.id.curation_recycler);
-        adapter = new HomeAdapter();
+        card_list = new CardList();
 
-        adapter.setCardData();
-        recycler_view.setLayoutManager(layout_manager);
-        recycler_view.setAdapter(adapter);
+        fragment_manager = getFragmentManager();
+
+        adapter = new HomeAdapter(fragment_manager, card_list);
+
+        view_pager = (VerticalViewPager) curation_view.findViewById(R.id.curation_pager);
+        view_pager.setAdapter(adapter);
 
         return curation_view;
     }

@@ -1,14 +1,12 @@
 package indivus.cosmos.model.network;
 
-import indivus.cosmos.model.server.LoginData;
+import indivus.cosmos.model.server.CardResult;
 import indivus.cosmos.model.server.LoginResult;
-import indivus.cosmos.model.server.ResisterResult;
 import indivus.cosmos.model.server.SignUpData;
 import indivus.cosmos.model.server.SignUpResult;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -18,8 +16,8 @@ import retrofit2.http.Path;
 
 public interface NetworkService  {
 
-    @GET("/user")
-    Call<LoginResult> getLoginResult();
+    @GET("/post/{post_id}")
+    Call<CardResult> getCardResult(@Path("post_id") int post_id);
 
     @POST("/user/{id}")
     Call<LoginResult> tryLogin(@Path("id") String id, @Body String password);
