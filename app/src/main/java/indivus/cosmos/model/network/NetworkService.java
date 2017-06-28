@@ -14,13 +14,13 @@ import retrofit2.http.Path;
  * Created by seowo on 2017-06-25.
  */
 
-public interface NetworkService  {
+public interface NetworkService {
 
-    @GET("/post/{post_id}")
+    @GET("/post/")
     Call<CardResult> getCardResult(@Path("post_id") int post_id);
 
-    @POST("/user/{id}")
-    Call<LoginResult> tryLogin(@Path("id") String id, @Body String password);
+    @POST("/login/{email}")
+    Call<LoginResult> tryLogin(@Path("email") String email, @Body String password);
 
     @POST("/user")
     Call<SignUpResult> signUp(@Body SignUpData data);

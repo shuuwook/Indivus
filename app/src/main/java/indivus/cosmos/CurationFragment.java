@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import indivus.cosmos.model.data.CardList;
 import indivus.cosmos.presenter.HomeAdapter;
 
 /**

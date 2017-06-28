@@ -1,2 +1,0 @@
-# Indivus
-Sopt Appjam

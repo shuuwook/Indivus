@@ -16,7 +16,7 @@ public class Indivus extends Application {
 
     private static Indivus indivus;
 
-    private static String baseUrl = "";
+    private static String baseUrl = "http://192.168.200.104:3000";
 
     private NetworkService network_service;
 
@@ -30,9 +30,12 @@ public class Indivus extends Application {
     public void onCreate() {
         super.onCreate();
 
-        Typekit.getInstance()
+        /*Typekit.getInstance()
                 .addNormal(Typekit.createFromAsset(this, "fonts/NotoSansLao-Regular.ttf"))
-                .addBold(Typekit.createFromAsset(this, "fonts/NotoSansLao-Bold.ttf"));
+                .addBold(Typekit.createFromAsset(this, "fonts/NotoSansLao-Bold.ttf"));*/
+
+        Indivus.indivus = this;
+        buildService();
     }
 
     public void buildService(){

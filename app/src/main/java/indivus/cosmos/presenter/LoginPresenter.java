@@ -29,12 +29,13 @@ public class LoginPresenter {
             public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
                 if(response.isSuccessful()){
                     //login한 user의 정보를 받아온다
-                    if(response.body().message.equals("success")){
+                    if(response.body().message.equals("login success")){
                         result = true;
                     }
-                    else{
-                        result = false;
-                    }
+                }
+                else{
+                    int statusCode = response.code();
+                    Log.i("server status", "CODE : " + statusCode);
                 }
             }
 
