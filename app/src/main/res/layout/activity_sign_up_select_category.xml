@@ -6,7 +6,7 @@
     android:background="@drawable/background">
 
     <TextView
-        android:id="@+id/select_main_keycards_choosekeycard"
+        android:id="@+id/select_category_choosekeycard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="관심사를 선택해주세요."
@@ -20,7 +20,7 @@
         app:layout_constraintVertical_bias="0.15"/>
 
     <Button
-        android:id="@+id/select_main_keycards_mainkey_a"
+        android:id="@+id/select_category_a"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/category_btn_background"
@@ -28,13 +28,13 @@
         android:text="감성글"
         android:textColor="#000000"
         android:textSize="8pt"
-        app:layout_constraintTop_toBottomOf="@id/select_main_keycards_choosekeycard"
+        app:layout_constraintTop_toBottomOf="@id/select_category_choosekeycard"
         android:layout_marginTop="62dp"
-        app:layout_constraintRight_toLeftOf="@+id/select_main_keycards_mainkey_b"
+        app:layout_constraintRight_toLeftOf="@+id/select_category_b"
         android:layout_marginRight="13dp"
     />
     <Button
-        android:id="@+id/select_main_keycards_mainkey_b"
+        android:id="@+id/select_category_b"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/category_btn_background"
@@ -42,16 +42,16 @@
         android:text="사진"
         android:textColor="#000000"
         android:textSize="8pt"
-        app:layout_constraintTop_toBottomOf="@+id/select_main_keycards_choosekeycard"
+        app:layout_constraintTop_toBottomOf="@+id/select_category_choosekeycard"
         android:layout_marginTop="62dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="13dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="13dp"
-        app:layout_constraintLeft_toRightOf="@+id/select_main_keycards_mainkey_a"
-        android:layout_marginBottom="15dp"
+        app:layout_constraintLeft_toRightOf="@+id/select_category_a"
+        android:layout_marginBottom="15dp"/>
     <Button
-        android:id="@+id/select_main_keycards_mainkey_c"
+        android:id="@+id/select_category_c"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/category_btn_background"
@@ -59,13 +59,13 @@
         android:text="일러스트"
         android:textColor="#000000"
         android:textSize="8pt"
-        app:layout_constraintTop_toBottomOf="@+id/select_main_keycards_choosekeycard"
+        app:layout_constraintTop_toBottomOf="@+id/select_category_choosekeycard"
         android:layout_marginTop="62dp"
-        app:layout_constraintLeft_toRightOf="@+id/select_main_keycards_mainkey_b"
+        app:layout_constraintLeft_toRightOf="@+id/select_category_b"
         android:layout_marginLeft="13dp"
         />
     <Button
-        android:id="@+id/select_main_keycards_mainkey_d"
+        android:id="@+id/select_category_d"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/category_btn_background"
@@ -73,13 +73,13 @@
         android:text="디자인"
         android:textColor="#000000"
         android:textSize="8pt"
-        app:layout_constraintTop_toBottomOf="@+id/select_main_keycards_mainkey_b"
+        app:layout_constraintTop_toBottomOf="@+id/select_category_b"
         android:layout_marginTop="15dp"
-        app:layout_constraintRight_toLeftOf="@+id/select_main_keycards_mainkey_e"
+        app:layout_constraintRight_toLeftOf="@+id/select_category_e"
         android:layout_marginRight="13dp"
         />
     <Button
-        android:id="@+id/select_main_keycards_mainkey_e"
+        android:id="@+id/select_category_e"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/category_btn_background"
@@ -87,7 +87,7 @@
         android:text="소설"
         android:textColor="#000000"
         android:textSize="8pt"
-        app:layout_constraintTop_toBottomOf="@+id/select_main_keycards_mainkey_b"
+        app:layout_constraintTop_toBottomOf="@+id/select_category_b"
         android:layout_marginTop="15dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="13dp"
@@ -95,7 +95,7 @@
         android:layout_marginRight="13dp"
         />
     <Button
-        android:id="@+id/select_main_keycards_mainkey_f"
+        android:id="@+id/select_category_f"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/category_btn_background"
@@ -103,18 +103,18 @@
         android:text="비디오"
         android:textColor="#000000"
         android:textSize="8pt"
-        app:layout_constraintTop_toBottomOf="@+id/select_main_keycards_mainkey_b"
+        app:layout_constraintTop_toBottomOf="@+id/select_category_b"
         android:layout_marginTop="15dp"
-        app:layout_constraintLeft_toRightOf="@+id/select_main_keycards_mainkey_e"
+        app:layout_constraintLeft_toRightOf="@+id/select_category_e"
         android:layout_marginLeft="13dp"
         />
 
     <Button
-        android:id="@+id/select_main_keycards_signup_btn"
+        android:id="@+id/select_category_signup_btn"
         android:background="@drawable/signup_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/select_main_keycards_mainkey_e"
+        app:layout_constraintTop_toBottomOf="@+id/select_category_e"
         android:layout_marginTop="79dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>

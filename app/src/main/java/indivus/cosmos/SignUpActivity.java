@@ -27,6 +27,8 @@ public class SignUpActivity extends AppCompatActivity {
 
     SignupPresenter signup_presenter;
 
+    boolean result_email, result_repw, result_username;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +46,11 @@ public class SignUpActivity extends AppCompatActivity {
 
         signup_next_toSelectCategory_btn = (Button) findViewById(R.id.signup_next);
 
+        result_email = false;
+        result_repw = false;
+        result_username = false;
+
         signup_presenter = new SignupPresenter();
-
-        final boolean result_email, result_repw, result_username;
-
 
         signup_email_confirm_btn.setOnClickListener(new View.OnClickListener(){
 
