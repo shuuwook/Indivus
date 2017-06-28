@@ -17,12 +17,12 @@ import indivus.cosmos.presenter.LoginPresenter;
 
 public class LoginActivity extends Activity {
 
-    EditText email_edit;
-    EditText password_edit;
+    EditText login_email_edit;
+    EditText login_password_edit;
 
     Button login_btn;
     Button login_facebook_btn;
-    Button sign_up_btn;
+    Button login_sign_up_btn;
 
     LoginPresenter login_presenter;
 
@@ -30,21 +30,21 @@ public class LoginActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acticity_login);
-        startActivity(new Intent(this, Splash.class)); //splash
+        startActivity(new Intent(this, SplashActivity.class)); //splash
 
-        email_edit = (EditText)findViewById(R.id.login_email_edit);
-        password_edit = (EditText)findViewById(R.id.login_password_edit);
+        login_email_edit = (EditText)findViewById(R.id.login_email_edit);
+        login_password_edit = (EditText)findViewById(R.id.login_password_edit);
 
         login_btn = (Button)findViewById(R.id.login_btn);
         login_facebook_btn = (Button)findViewById(R.id.login_facebook_btn);
-        sign_up_btn = (Button)findViewById(R.id.signup_btn);
+        login_sign_up_btn = (Button)findViewById(R.id.login_signup_btn);
 
         login_presenter = new LoginPresenter();
 
         login_btn.setOnClickListener(new View.OnClickListener() {
             boolean result;
-            String email = email_edit.getText().toString();
-            String password = password_edit.getText().toString();
+            String email = login_email_edit.getText().toString();
+            String password = login_password_edit.getText().toString();
 
             @Override
             public void onClick(View v) {
@@ -62,11 +62,23 @@ public class LoginActivity extends Activity {
             }
         });
 
-        sign_up_btn.setOnClickListener(new View.OnClickListener() {
+        //facebook 로그인
+        login_facebook_btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            }
+        });
+
+
+        //signup 버튼
+        login_sign_up_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), SignUpActivity.class));
+                onPause();
             }
+
         });
 
     }
