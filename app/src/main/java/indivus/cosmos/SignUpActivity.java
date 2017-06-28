@@ -60,10 +60,10 @@ public class SignUpActivity extends AppCompatActivity {
                 result_email = signup_presenter.tryconfirmEmail(email);
                 if(result_email){
                     //confirm아이콘 변화
-                    signup_email_confirm_btn.setBackground(R.drawable.check);
+                    //signup_email_confirm_btn.setBackground(R.drawable.check);
                 }
                 else{
-                    signup_email_confirm_btn.setBackground(R.drawable.confirm);
+                    //signup_email_confirm_btn.setBackground(R.drawable.confirm);
                     Toast.makeText(getApplicationContext(), "이미 존재하는 email입니다.",Toast.LENGTH_SHORT).show();
                 }
             }
@@ -76,10 +76,10 @@ public class SignUpActivity extends AppCompatActivity {
                 result_repw = signup_presenter.tryconfirmRepw(repw);
                 if(result_repw){
                     //confirm아이콘 변화
-                    signup_repw_confirm_btn.setBackground(R.drawable.check);
+                    //signup_repw_confirm_btn.setBackground(R.drawable.check);
                 }
                 else{
-                    signup_repw_confirm_btn.setBackground(R.drawable.confirm);
+                    //signup_repw_confirm_btn.setBackground(R.drawable.confirm);
                     Toast.makeText(getApplicationContext(), "비밀번호가 일치하지 않습니다.",Toast.LENGTH_SHORT).show();
                 }
             }
@@ -92,10 +92,10 @@ public class SignUpActivity extends AppCompatActivity {
                 result_username = signup_presenter.tryconfirmUsername(username);
                 if(result_username){
                     //confirm아이콘 변화
-                    signup_username_confirm_btn.setBackground(R.drawable.check);
+                    //signup_username_confirm_btn.setBackground(R.drawable.check);
                 }
                 else{
-                    signup_username_confirm_btn.setBackground(R.drawable.confirm);
+                    //signup_username_confirm_btn.setBackground(R.drawable.confirm);
                     Toast.makeText(getApplicationContext(), "이미 존재하는 username입니다.",Toast.LENGTH_SHORT).show();
                 }
             }
