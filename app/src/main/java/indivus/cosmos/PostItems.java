@@ -5,13 +5,27 @@ package indivus.cosmos;
  */
 
 public class PostItems {
-    private String name;
+    int img;
+    String text;
 
-    public PostItems (String name){
-        this.name = name;
+    public PostItems(){}
+
+    public PostItems (String text){
+        this.text = text;
+    }
+    public PostItems (int img){
+        this.img = img;
+    }
+    public PostItems (int img, String text){
+        this.img = img;
+        this.text = text;
     }
 
-    public String getName(){
-        return name;
+    public int getImg() { return img; }
+    public String getText(){
+        return text;
     }
+
+
+
 }

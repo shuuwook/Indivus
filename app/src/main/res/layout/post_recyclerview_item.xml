@@ -8,14 +8,14 @@
         android:id="@+id/post_recyclerview_item_imageview"
         android:src="@drawable/login_logo"
         android:background="#00aacc"
-        android:layout_marginStart="16dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
     <TextView
-        android:id="@+id/itemNameTv"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="72dp"
-        android:textSize="18sp"
-        android:layout_width="wrap_content"
+        android:id="@+id/post_recyclerview_item_textview"
+        android:background="#ffffff"
+        android:text="ex"
+        android:textColor="#000000"
+        android:textSize="9pt"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </RelativeLayout>
