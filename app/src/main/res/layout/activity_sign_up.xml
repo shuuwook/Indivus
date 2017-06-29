@@ -5,14 +5,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background">
 
-    <ImageView
+    <TextView
         android:id="@+id/welcome"
-        android:src="@drawable/welcome"
+        android:background="#00000000"
+        android:text="환영합니다!"
+        android:textColor="#ffffff"
+        android:textSize="12pt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.17"
+        app:layout_constraintVertical_bias="0.1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 
@@ -27,7 +30,7 @@
         app:layout_constraintRight_toRightOf="parent">
         <ImageView
             android:id="@+id/signup_email_icon"
-            android:background="@drawable/email_icon"
+            android:src="@drawable/email_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -38,6 +41,7 @@
             android:id="@+id/signup_email_tx"
             android:hint="Email"
             android:textColorHint="#88ffffff"
+            android:textColor="#95989a"
             android:background="@null"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,11 +50,14 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             />
-        <ImageView
+        <Button
             android:id="@+id/signup_email_confirm"
-            android:background="@drawable/confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:text="confirm"
+            android:textColor="#77ffffff"
+            android:textSize="5pt"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -60,7 +67,7 @@
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/signup_pw"
+        android:id="@+id/signup_password"
         android:background="@drawable/round_edit_text_box"
         android:layout_width="300dp"
         android:layout_height="50dp"
@@ -70,8 +77,8 @@
         app:layout_constraintRight_toRightOf="parent">
 
         <ImageView
-            android:id="@+id/signup_pw_icon"
-            android:background="@drawable/password_icon"
+            android:id="@+id/signup_password_icon"
+            android:src="@drawable/password_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -79,13 +86,14 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginLeft="20dp"/>
         <EditText
-            android:id="@+id/signup_pw_tx"
+            android:id="@+id/signup_password_tx"
             android:hint="Password"
             android:textColorHint="#88ffffff"
+            android:textColor="#95989a"
             android:background="@null"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@+id/signup_pw_icon"
+            app:layout_constraintLeft_toRightOf="@+id/signup_password_icon"
             android:layout_marginLeft="10dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -97,13 +105,13 @@
         android:background="@drawable/round_edit_text_box"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        app:layout_constraintTop_toBottomOf="@+id/signup_pw"
+        app:layout_constraintTop_toBottomOf="@+id/signup_password"
         android:layout_marginTop="21dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
         <ImageView
             android:id="@+id/signup_repw_icon"
-            android:background="@drawable/password_icon"
+            android:src="@drawable/password_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -114,6 +122,7 @@
             android:id="@+id/signup_repw_tx"
             android:hint="Again Password"
             android:textColorHint="#88ffffff"
+            android:textColor="#95989a"
             android:background="@null"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -122,10 +131,14 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             />
-        <ImageView
+        <Button
             android:id="@+id/signup_repw_confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:text="confirm"
+            android:textColor="#77ffffff"
+            android:textSize="5pt"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -144,7 +157,7 @@
         app:layout_constraintRight_toRightOf="parent">
         <ImageView
             android:id="@+id/signup_username_icon"
-            android:background="@drawable/user"
+            android:src="@drawable/user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -155,6 +168,7 @@
             android:id="@+id/signup_username_tx"
             android:hint="Username"
             android:textColorHint="#88ffffff"
+            android:textColor="#95989a"
             android:background="@null"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -163,11 +177,14 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             />
-        <ImageView
+        <Button
             android:id="@+id/signup_username_confirm"
-            android:background="@drawable/confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:text="confirm"
+            android:textColor="#77ffffff"
+            android:textSize="5pt"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -176,7 +193,7 @@
     </android.support.constraint.ConstraintLayout>
 
     <Button
-        android:id="@+id/next"
+        android:id="@+id/signup_next"
         android:background="@drawable/next_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

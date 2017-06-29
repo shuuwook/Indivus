@@ -20,7 +20,7 @@ public class CurationFragment extends Fragment {
     HomeAdapter adapter;
     FragmentManager fragment_manager;
 
-    CardList card_list;
+    //CardList card_list;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,11 +33,11 @@ public class CurationFragment extends Fragment {
 
         View curation_view = inflater.inflate(R.layout.fragement_curation, container, false);
 
-        card_list = new CardList();
+        //card_list = new CardList();
 
         fragment_manager = getFragmentManager();
 
-        adapter = new HomeAdapter(fragment_manager, card_list);
+        //adapter = new HomeAdapter(fragment_manager, card_list);
 
         view_pager = (VerticalViewPager) curation_view.findViewById(R.id.curation_pager);
         view_pager.setAdapter(adapter);
