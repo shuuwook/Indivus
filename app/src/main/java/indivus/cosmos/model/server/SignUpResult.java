@@ -5,5 +5,6 @@ package indivus.cosmos.model.server;
  */
 
 public class SignUpResult {
-    String message;
+    public String message;
+    public int id;
 }

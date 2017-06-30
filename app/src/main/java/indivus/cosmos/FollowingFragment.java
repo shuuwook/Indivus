@@ -20,8 +20,6 @@ public class FollowingFragment extends Fragment {
     HomeAdapter adapter;
     FragmentManager fragment_manager;
 
-    //CardList card_list;
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,14 +31,16 @@ public class FollowingFragment extends Fragment {
 
         View following_view = inflater.inflate(R.layout.fragment_following, container, false);
 
-        //card_list = new CardList();
-
         fragment_manager = getFragmentManager();
 
-        //adapter = new HomeAdapter(fragment_manager, card_list);
+        adapter = new HomeAdapter(fragment_manager);
 
         view_pager = (VerticalViewPager) following_view.findViewById(R.id.following_pager);
         view_pager.setAdapter(adapter);
+        view_pager.setClipToPadding(false);
+        view_pager.setPadding(0, 10, 0, 10);
+
+        view_pager.setPageMargin(10);
 
         return following_view;
     }

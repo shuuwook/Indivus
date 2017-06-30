@@ -3,26 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_home_feed"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         android:enabled="true"
-        android:icon="@android:drawable/ic_dialog_info"
-        android:titleCondensed=""
-        android:title="@string/selection_home_feed" />
+        android:icon="@drawable/homefeed_1"
+        android:title="" />
     <item
         android:id="@+id/action_explorer"
-        app:showAsAction="ifRoom"
-        android:icon="@android:drawable/ic_dialog_info"
-        android:title="@string/selection_explorer" />
+        app:showAsAction="always"
+        android:icon="@drawable/explore_1"
+        android:title="" />
     <item
         android:id="@+id/action_notice"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         android:enabled="true"
-        android:icon="@android:drawable/ic_dialog_info"
-        android:title="@string/selection_notifiy" />
+        android:icon="@drawable/notice_1"
+        android:title="" />
     <item
         android:id="@+id/action_my_space"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         android:enabled="true"
-        android:icon="@android:drawable/ic_dialog_info"
-        android:title="@string/selection_my_space" />
+        android:icon="@drawable/myspace_1"
+        android:title="" />
 </menu>

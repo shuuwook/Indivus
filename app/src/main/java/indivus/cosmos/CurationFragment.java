@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 import indivus.cosmos.presenter.HomeAdapter;
 
 /**
@@ -20,8 +22,6 @@ public class CurationFragment extends Fragment {
     HomeAdapter adapter;
     FragmentManager fragment_manager;
 
-    //CardList card_list;
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,14 +33,16 @@ public class CurationFragment extends Fragment {
 
         View curation_view = inflater.inflate(R.layout.fragement_curation, container, false);
 
-        //card_list = new CardList();
-
         fragment_manager = getFragmentManager();
 
-        //adapter = new HomeAdapter(fragment_manager, card_list);
+        adapter = new HomeAdapter(fragment_manager);
 
         view_pager = (VerticalViewPager) curation_view.findViewById(R.id.curation_pager);
         view_pager.setAdapter(adapter);
+        view_pager.setClipToPadding(false);
+        view_pager.setPadding(0, 10, 0, 10);
+
+        view_pager.setPageMargin(10);
 
         return curation_view;
     }

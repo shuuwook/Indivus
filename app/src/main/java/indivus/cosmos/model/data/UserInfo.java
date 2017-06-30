@@ -5,4 +5,5 @@ package indivus.cosmos.model.data;
  */
 
 public class UserInfo {
+    public static String user_token;
 }

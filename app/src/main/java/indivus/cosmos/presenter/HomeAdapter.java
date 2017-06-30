@@ -27,40 +27,25 @@ public class HomeAdapter extends FragmentPagerAdapter {
 
     NetworkService service;
 
-    public HomeAdapter(FragmentManager fm, ArrayList<Card> card_list) {
+    public HomeAdapter(FragmentManager fm) {
         super(fm);
-        this.card_list = card_list;
-        list_size = card_list.size();
+        card_list = new ArrayList<Card>();
 
         //initialize network
         service = Indivus.getInstance().getNetworkService();
+
+        //처음 10개 값 얻어옴
+        //updateCardList(0);
+
+        list_size = card_list.size();
     }
 
     @Override
     public Fragment getItem(final int position) {
         final Fragment card_fragment;
 
-        if(position == list_size - 2) {
-            Call<CardResult> cardResultCall = service.getCardResult(card_list.get(position).getPostId());
-            cardResultCall.enqueue(new Callback<CardResult>() {
-                @Override
-                public void onResponse(Call<CardResult> call, Response<CardResult> response) {
-                    if(response.isSuccessful()){
-                        if(response.body().message.equals("success")){
-                            card_list.addAll(response.body().result);
-                        }
-                    }
-                    else{
-                        int statusCode = response.code();
-                        Log.i("server status", "CODE : " + statusCode);
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<CardResult> call, Throwable t) {
-                    Log.i("network error", t.getMessage());
-                }
-            });
+        if(position < list_size - 1) {
+            updateCardList(position);
         }
 
         card_fragment = new HomeCardFragment(card_list.get(position));
@@ -70,6 +55,33 @@ public class HomeAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 0;
+        return list_size;
     }
+
+    public void updateCardList(int position){
+        Call<CardResult> cardResultCall = service.getCardResult();
+        cardResultCall.enqueue(new Callback<CardResult>() {
+            @Override
+            public void onResponse(Call<CardResult> call, Response<CardResult> response) {
+                if(response.isSuccessful()){
+                    if(response.body().message.equals("success")){
+                        card_list.addAll(response.body().result);
+                    }
+                }
+                else{
+                    int statusCode = response.code();
+                    Log.i("server status", "CODE : " + statusCode);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CardResult> call, Throwable t) {
+                Log.i("network error", t.getMessage());
+            }
+        });
+    }
+
+    public void addLight(){};
+    public void addComment(){};
+    public void addCollect(){};
 }

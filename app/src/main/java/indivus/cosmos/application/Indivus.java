@@ -7,6 +7,7 @@ import com.tsengvn.typekit.Typekit;
 import indivus.cosmos.model.network.NetworkService;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * Created by seowo on 2017-06-27.
@@ -16,7 +17,7 @@ public class Indivus extends Application {
 
     private static Indivus indivus;
 
-    private static String baseUrl = "http://192.168.200.104:3000";
+    private static String baseUrl = "http://192.168.200.198:3000";
 
     private NetworkService network_service;
 
@@ -30,9 +31,9 @@ public class Indivus extends Application {
     public void onCreate() {
         super.onCreate();
 
-        /*Typekit.getInstance()
+        Typekit.getInstance()
                 .addNormal(Typekit.createFromAsset(this, "fonts/NotoSansLao-Regular.ttf"))
-                .addBold(Typekit.createFromAsset(this, "fonts/NotoSansLao-Bold.ttf"));*/
+                .addBold(Typekit.createFromAsset(this, "fonts/NotoSansLao-Bold.ttf"));
 
         Indivus.indivus = this;
         buildService();
@@ -43,6 +44,7 @@ public class Indivus extends Application {
         Retrofit retrofit = builder
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(ScalarsConverterFactory.create())
                 .build();
 
         network_service = retrofit.create(NetworkService.class);

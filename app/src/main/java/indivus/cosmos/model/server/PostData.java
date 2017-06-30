@@ -1,17 +1,30 @@
 package indivus.cosmos.model.server;
 
+import java.util.ArrayList;
+
 /**
- * Created by seowo on 2017-06-26.
+ * Created by seowo on 2017-06-30.
  */
 
 public class PostData {
     String title;
-    String sub_title;
-    String explain;
-    String contents;
-    String comment;
-    String card_cover;
-    int content_type;
-    String posting_date; // DATETIME 데이터 형식
-    int like_counts;
+    String synopsis;
+
+    ArrayList<PostContent> contents;
+
+    String creator_image;
+    String creator_title;
+    String creator_job;
+
+    String creator_comment;
+
+    String light_count;
+    String comment_count;
+    String collect_count;
+
+
+    class PostContent{
+        boolean type;
+        String src;
+    }
 }

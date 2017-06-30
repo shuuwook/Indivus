@@ -1,119 +1,199 @@
 package indivus.cosmos;
 
 import android.content.Intent;
-import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import indivus.cosmos.presenter.SignupPresenter;
-
-import static indivus.cosmos.R.id.signup_email_confirm;
+import indivus.cosmos.presenter.ResponseCallBack;
+import indivus.cosmos.presenter.SignUpPresenter;
 
 public class SignUpActivity extends AppCompatActivity {
+    private final int success = 0;
+    private final int fail = 1;
+    private final int email_already_exists = 2;
+    private final int username_already_exists = 3;
+
+    ConstraintLayout signup_email;
+    ConstraintLayout signup_password;
+    ConstraintLayout signup_username;
 
     EditText signup_email_edit;
     EditText signup_password_edit;
-    EditText signup_repw_edit;
+    EditText signup_password_edit_confirm;
     EditText signup_username_edit;
 
-    Button signup_email_confirm_btn;
-    Button signup_repw_confirm_btn;
-    Button signup_username_confirm_btn;
+    ImageView signup_email_confirm;
+    ImageView signup_username_confirm;
 
-    Button signup_next_toSelectCategory_btn;
+    Button signup_next_btn;
 
-    SignupPresenter signup_presenter;
+    boolean isEmailChecked = false;
+    boolean isNameChecked = false;
 
-    boolean result_email, result_repw, result_username;
+    int result_code;
 
+    SignUpPresenter signup_presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
+        signup_presenter = new SignUpPresenter();
+
+        signup_email = (ConstraintLayout)findViewById(R.id.signup_email);
+        signup_password = (ConstraintLayout)findViewById(R.id.signup_pw);
+        signup_username = (ConstraintLayout)findViewById(R.id.signup_username);
+
         signup_email_edit = (EditText)findViewById(R.id.signup_email_tx);
-        signup_password_edit = (EditText)findViewById(R.id.signup_password_tx);
-        signup_repw_edit = (EditText)findViewById(R.id.signup_repw_tx);
+        signup_password_edit = (EditText)findViewById(R.id.signup_pw_tx);
+        signup_password_edit_confirm = (EditText)findViewById(R.id.signup_repw_tx);
         signup_username_edit = (EditText)findViewById(R.id.signup_username_tx);
 
-        signup_email_confirm_btn = (Button)findViewById(signup_email_confirm);
-        signup_repw_confirm_btn = (Button)findViewById(R.id.signup_repw_confirm);
-        signup_username_confirm_btn = (Button)findViewById(R.id.signup_username_confirm);
+        signup_email_confirm = (ImageView)findViewById(R.id.signup_email_confirm);
+        signup_username_confirm = (ImageView)findViewById(R.id.signup_username_confirm);
 
-        signup_next_toSelectCategory_btn = (Button) findViewById(R.id.signup_next);
+        signup_next_btn = (Button)findViewById(R.id.next);
 
-        result_email = false;
-        result_repw = false;
-        result_username = false;
+       signup_email_edit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+           @Override
+           public void onFocusChange(View v, boolean hasFocus) {
+               //when hasFocus == false and isEmailChecked == false
+                if(hasFocus == false && isEmailChecked == false){
+                    String email = signup_email_edit.getText().toString();
+                    //email 형식 체크
+                    if(!signup_presenter.isValidEmail(email)){
+                        signup_email.setBackgroundResource(R.drawable.round_edit_text_exist_box);
+                        signup_email_confirm.setVisibility(View.INVISIBLE);
+                        Toast.makeText(getApplicationContext(), "이메일 형식이 맞지 않습니다", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
-        signup_presenter = new SignupPresenter();
+                    signup_presenter.confirmEmail(email, new ResponseCallBack() {
+                        @Override
+                        public void onSuccess(int result) {
+                            if(result == success){
+                                signup_email.setBackgroundResource(R.drawable.round_edit_text_checked_box);
+                                signup_email_confirm.setVisibility(View.VISIBLE);
 
-        signup_email_confirm_btn.setOnClickListener(new View.OnClickListener(){
+                                isEmailChecked = true;
+                            }
+                        }
+                        @Override
+                        public void onError(int result) {
+                            if(result == email_already_exists){
+                                signup_email.setBackgroundResource(R.drawable.round_edit_text_exist_box);
+                                signup_email_confirm.setVisibility(View.INVISIBLE);
+                            }
+                        }
+                    });
+                }
+           }
+       });
 
-            String email = signup_email_edit.getText().toString();
+        signup_email_edit.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                result_email = signup_presenter.tryconfirmEmail(email);
-                if(result_email){
-                    //confirm아이콘 변화
-                    //signup_email_confirm_btn.setBackground(R.drawable.check);
-                }
-                else{
-                    //signup_email_confirm_btn.setBackground(R.drawable.confirm);
-                    Toast.makeText(getApplicationContext(), "이미 존재하는 email입니다.",Toast.LENGTH_SHORT).show();
-                }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //null
             }
-        });
-        signup_repw_confirm_btn.setOnClickListener(new View.OnClickListener(){
 
-            String repw = signup_repw_edit.getText().toString();
             @Override
-            public void onClick(View v) {
-                result_repw = signup_presenter.tryconfirmRepw(repw);
-                if(result_repw){
-                    //confirm아이콘 변화
-                    //signup_repw_confirm_btn.setBackground(R.drawable.check);
-                }
-                else{
-                    //signup_repw_confirm_btn.setBackground(R.drawable.confirm);
-                    Toast.makeText(getApplicationContext(), "비밀번호가 일치하지 않습니다.",Toast.LENGTH_SHORT).show();
-                }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                isEmailChecked = false;
+                signup_email.setBackgroundResource(R.drawable.round_edit_text_box);
+                signup_email_confirm.setVisibility(View.INVISIBLE);
             }
-        });
-        signup_username_confirm_btn.setOnClickListener(new View.OnClickListener(){
-
-            String username = signup_username_edit.getText().toString();
-            @Override
-            public void onClick(View v) {
-                result_username = signup_presenter.tryconfirmUsername(username);
-                if(result_username){
-                    //confirm아이콘 변화
-                    //signup_username_confirm_btn.setBackground(R.drawable.check);
-                }
-                else{
-                    //signup_username_confirm_btn.setBackground(R.drawable.confirm);
-                    Toast.makeText(getApplicationContext(), "이미 존재하는 username입니다.",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        signup_next_toSelectCategory_btn.setOnClickListener(new View.OnClickListener(){
 
             @Override
-            public void onClick(View v) {
-                boolean result = signup_presenter.trySignup();
-                if (result) {
-                    startActivity(new Intent(getApplicationContext(), SignUpSelectCategoryActivity.class));
-                    finish();
-                }
-
+            public void afterTextChanged(Editable s) {
+                isEmailChecked = false;
             }
         });
 
+        signup_username_edit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                //when hasFocus == false and isEmailChecked == false
+                if(hasFocus == false && isNameChecked == false){
+                    signup_presenter.confirmUsername(signup_username_edit.getText().toString(), new ResponseCallBack() {
+                        @Override
+                        public void onSuccess(int result) {
+                            if(result_code == success){
+                                signup_username.setBackgroundResource(R.drawable.round_edit_text_checked_box);
+                                signup_username_confirm.setVisibility(View.VISIBLE);
+                                isNameChecked = true;
+                            }
+                        }
 
+                        @Override
+                        public void onError(int result) {
+                            if(result_code == username_already_exists){
+                                signup_username.setBackgroundResource(R.drawable.round_edit_text_exist_box);
+                                signup_username_confirm.setVisibility(View.INVISIBLE);
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+        signup_username_edit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //null
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                isNameChecked = false;
+                signup_username.setBackgroundResource(R.drawable.round_edit_text_box);
+                signup_username_confirm.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                isNameChecked = false;
+            }
+        });
+
+        signup_next_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String password = signup_password_edit.getText().toString();
+                String password_confirm = signup_password_edit_confirm.getText().toString();
+
+                boolean isPasswordCorrect = signup_presenter.confirmPassword(password, password_confirm);
+                if(!isPasswordCorrect){
+                    Toast.makeText(getApplicationContext(), "비밀번호를 다시 확인해주시기 바랍니다", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(isEmailChecked && isNameChecked && isPasswordCorrect){
+                    String email = signup_email_edit.getText().toString();
+                    String username = signup_username_edit.getText().toString();
+                    signup_presenter.signUpNext(email, password, username, new ResponseCallBack() {
+                        @Override
+                        public void onSuccess(int result) {
+                            Intent intent = new Intent(getApplicationContext(), SignUpSelectCategoryActivity.class);
+                            intent.putExtra("user_code", signup_presenter.getUserCode());
+                            startActivity(intent); //main 화면
+                            finish();
+                        }
+
+                        @Override
+                        public void onError(int result) {
+                            Toast.makeText(getApplicationContext(), "회원가입 오류", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        });
     }
 }

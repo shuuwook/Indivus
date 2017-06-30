@@ -5,7 +5,13 @@ package indivus.cosmos.model.server;
  */
 
 public class SignUpData {
-    String id;
+    String email;
     String password;
-    String name;
+    String username;
+
+    public SignUpData(String email, String password, String username) {
+        this.email = email;
+        this.password = password;
+        this.username = username;
+    }
 }

@@ -19,105 +19,27 @@
         android:layout_marginBottom="62dp"
         app:layout_constraintVertical_bias="0.15"/>
 
-    <Button
-        android:id="@+id/select_category_a"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/category_btn_background"
-        android:drawableTop="@drawable/mainkey_a"
-        android:text="감성글"
-        android:textColor="#000000"
-        android:textSize="8pt"
-        app:layout_constraintTop_toBottomOf="@id/select_category_choosekeycard"
-        android:layout_marginTop="62dp"
-        app:layout_constraintRight_toLeftOf="@+id/select_category_b"
-        android:layout_marginRight="13dp"
-    />
-    <Button
-        android:id="@+id/select_category_b"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/category_btn_background"
-        android:drawableTop="@drawable/mainkey_b"
-        android:text="사진"
-        android:textColor="#000000"
-        android:textSize="8pt"
-        app:layout_constraintTop_toBottomOf="@+id/select_category_choosekeycard"
-        android:layout_marginTop="62dp"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/select_category_recycler"
+        android:layout_width="0dp"
+        android:layout_height="400dp"
+        android:scrollbars="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="13dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="13dp"
-        app:layout_constraintLeft_toRightOf="@+id/select_category_a"
-        android:layout_marginBottom="15dp"/>
-    <Button
-        android:id="@+id/select_category_c"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/category_btn_background"
-        android:drawableTop="@drawable/mainkey_c"
-        android:text="일러스트"
-        android:textColor="#000000"
-        android:textSize="8pt"
-        app:layout_constraintTop_toBottomOf="@+id/select_category_choosekeycard"
-        android:layout_marginTop="62dp"
-        app:layout_constraintLeft_toRightOf="@+id/select_category_b"
-        android:layout_marginLeft="13dp"
-        />
-    <Button
-        android:id="@+id/select_category_d"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/category_btn_background"
-        android:drawableTop="@drawable/mainkey_d"
-        android:text="디자인"
-        android:textColor="#000000"
-        android:textSize="8pt"
-        app:layout_constraintTop_toBottomOf="@+id/select_category_b"
-        android:layout_marginTop="15dp"
-        app:layout_constraintRight_toLeftOf="@+id/select_category_e"
-        android:layout_marginRight="13dp"
-        />
-    <Button
-        android:id="@+id/select_category_e"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/category_btn_background"
-        android:drawableTop="@drawable/mainkey_e"
-        android:text="소설"
-        android:textColor="#000000"
-        android:textSize="8pt"
-        app:layout_constraintTop_toBottomOf="@+id/select_category_b"
-        android:layout_marginTop="15dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="13dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="13dp"
-        />
-    <Button
-        android:id="@+id/select_category_f"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/category_btn_background"
-        android:drawableTop="@drawable/mainkey_f"
-        android:text="비디오"
-        android:textColor="#000000"
-        android:textSize="8pt"
-        app:layout_constraintTop_toBottomOf="@+id/select_category_b"
-        android:layout_marginTop="15dp"
-        app:layout_constraintLeft_toRightOf="@+id/select_category_e"
-        android:layout_marginLeft="13dp"
-        />
+        app:layout_constraintBottom_toTopOf="@id/signup_btn"
+        app:layout_constraintTop_toBottomOf="@+id/select_category_choosekeycard">
+
+    </android.support.v7.widget.RecyclerView>
 
     <Button
-        android:id="@+id/select_category_signup_btn"
-        android:background="@drawable/signup_button"
+        android:id="@+id/signup_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/select_category_e"
-        android:layout_marginTop="79dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        android:text="sign up"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
 
 
 </android.support.constraint.ConstraintLayout>

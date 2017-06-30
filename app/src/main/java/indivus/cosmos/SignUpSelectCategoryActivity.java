@@ -2,11 +2,23 @@ package indivus.cosmos;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
+import indivus.cosmos.model.server.CategoryResult;
+import indivus.cosmos.presenter.CategoriesCallBack;
+import indivus.cosmos.presenter.ResponseCallBack;
+import indivus.cosmos.presenter.SelectCategoryAdapter;
+import indivus.cosmos.presenter.SignUpPresenter;
 
 /**
  * Created by Administrator on 2017-06-28.
@@ -14,167 +26,65 @@ import android.widget.Button;
 
 public class SignUpSelectCategoryActivity extends Activity {
 
-    Button select_category_a_btn;
-    Button select_category_b_btn;
-    Button select_category_c_btn;
-    Button select_category_d_btn;
-    Button select_category_e_btn;
-    Button select_category_f_btn;
-    Button select_category_signup_btn;
-    boolean[] select_categories;
+    SignUpPresenter signup_presenter;
 
+    private SelectCategoryAdapter adapter;
+    private GridLayoutManager grid_layout_manager;
+    private RecyclerView recycler_view;
 
-    Drawable select_category_a_btn_background;
-    Drawable select_category_b_btn_background;
-    Drawable select_category_c_btn_background;
-    Drawable select_category_d_btn_background;
-    Drawable select_category_e_btn_background;
-    Drawable select_category_f_btn_background;
+    Button sign_up_btn;
 
+    int user_code;
+    ArrayList<Integer> categories;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_select_category);
-        select_category_a_btn = (Button) findViewById(R.id.select_category_a);
-        select_category_b_btn = (Button) findViewById(R.id.select_category_b);
-        select_category_c_btn = (Button) findViewById(R.id.select_category_c);
-        select_category_d_btn = (Button) findViewById(R.id.select_category_d);
-        select_category_e_btn = (Button) findViewById(R.id.select_category_e);
-        select_category_f_btn = (Button) findViewById(R.id.select_category_f);
-        select_category_signup_btn = (Button) findViewById(R.id.select_category_signup_btn);
 
+        recycler_view = (RecyclerView)findViewById(R.id.select_category_recycler);
+        sign_up_btn = (Button)findViewById(R.id.signup_btn);
 
-        select_category_a_btn_background = select_category_a_btn.getBackground();
-        select_category_b_btn_background = select_category_b_btn.getBackground();
-        select_category_c_btn_background = select_category_c_btn.getBackground();
-        select_category_d_btn_background = select_category_d_btn.getBackground();
-        select_category_e_btn_background = select_category_e_btn.getBackground();
-        select_category_f_btn_background = select_category_f_btn.getBackground();
+        user_code = getIntent().getIntExtra("user_code", 0);
+        categories = new ArrayList<Integer>();
 
-        /*버튼 이미지, 텍스트 받아오기
-        select_category_a_btn.getResources().getDrawable();
-        select_category_b_btn.getResources().getDrawable();
-        select_category_c_btn.getResources().getDrawable();
-        select_category_d_btn.getResources().getDrawable();
-        select_category_e_btn.getResources().getDrawable();
-        select_category_f_btn.getResources().getDrawable();
+        signup_presenter = new SignUpPresenter();
 
-        select_category_a_btn.getResources().getText();
-        select_category_b_btn.getResources().getText();
-        select_category_c_btn.getResources().getText();
-        select_category_d_btn.getResources().getText();
-        select_category_e_btn.getResources().getText();
-        select_category_f_btn.getResources().getText();
-        */
-        select_category_a_btn_background.setAlpha(50);
-        select_category_b_btn_background.setAlpha(50);
-        select_category_c_btn_background.setAlpha(50);
-        select_category_d_btn_background.setAlpha(50);
-        select_category_e_btn_background.setAlpha(50);
-        select_category_f_btn_background.setAlpha(50);
+        signup_presenter.getCategoryList(new CategoriesCallBack() {
+            @Override
+            public void getCategories(ArrayList<CategoryResult.Category> categories) {
+                grid_layout_manager = new GridLayoutManager(SignUpSelectCategoryActivity.this, 2);
+                adapter = new SelectCategoryAdapter(SignUpSelectCategoryActivity.this, categories);
 
-        select_categories = new boolean[] {false, false, false, false, false, false};
+                recycler_view.setLayoutManager(grid_layout_manager);
+                recycler_view.setAdapter(adapter);
 
-        select_category_a_btn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                if (!select_categories[0]) {
-                    select_categories[0] = true;
-                    select_category_a_btn_background.setAlpha(255);
-                }
-                else {
-                    select_categories[0] = false;
-                    select_category_a_btn_background.setAlpha(50);
-                }
-            }
-        });
-        select_category_b_btn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                if (!select_categories[1]) {
-                    select_categories[1] = true;
-                    select_category_b_btn_background.setAlpha(255);
-                }
-                else {
-                    select_categories[1] = false;
-                    select_category_b_btn_background.setAlpha(50);
-                }
-            }
-        });
-        select_category_c_btn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                if (!select_categories[2]) {
-                    select_categories[2] = true;
-                    select_category_c_btn_background.setAlpha(255);
-                }
-                else {
-                    select_categories[2] = false;
-                    select_category_c_btn_background.setAlpha(50);
-                }
-            }
-        });
-        select_category_d_btn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                if (!select_categories[3]) {
-                    select_categories[3] = true;
-                    select_category_d_btn_background.setAlpha(255);
-                }
-                else {
-                    select_categories[3] = false;
-                    select_category_d_btn_background.setAlpha(50);
-                }
-            }
-        });
-        select_category_e_btn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                if (!select_categories[4]) {
-                    select_categories[4] = true;
-                    select_category_e_btn_background.setAlpha(255);
-                }
-                else {
-                    select_categories[4] = false;
-                    select_category_e_btn_background.setAlpha(50);
-                }
-            }
-        });
-        select_category_f_btn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                if (!select_categories[5]) {
-                    select_categories[5] = true;
-                    select_category_f_btn_background.setAlpha(255);
-                }
-                else {
-                    select_categories[5] = false;
-                    select_category_f_btn_background.setAlpha(50);
-                }
+                //recycler view loading 체감을 없애기 위해 캐쉬 확장
+                recycler_view.setHasFixedSize(true);
+                recycler_view.setItemViewCacheSize(20);
+                recycler_view.setDrawingCacheEnabled(true);
             }
         });
 
-        select_category_signup_btn.setOnClickListener(new View.OnClickListener(){
+        sign_up_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean result = false;
-                int count=0;
-                for (int i = 0; i< select_categories.length;i++){
-                    if (select_categories[i]){
-                        count++;
+                categories = adapter.getCategory_position();
+                for(int position : categories){
+                    Log.i("num", position+"");
+                }
+                signup_presenter.SignUpCategories(user_code, categories, new ResponseCallBack() {
+                    @Override
+                    public void onSuccess(int result) {
+                        finish();
                     }
-                }
-                if (count<5 && count!= 0 ){
-                    result = true;
-                }
-                if (result) {
-                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                    finish();
-                }
+
+                    @Override
+                    public void onError(int result) {
+                        Toast.makeText(getApplicationContext(), "회원가입 오류", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
-
-
     }
 }
