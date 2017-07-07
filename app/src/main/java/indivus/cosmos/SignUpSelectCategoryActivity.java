@@ -1,20 +1,18 @@
 package indivus.cosmos;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import indivus.cosmos.model.server.CategoryResult;
+import indivus.cosmos.model.server.signup.CategoryResult;
 import indivus.cosmos.presenter.CategoriesCallBack;
 import indivus.cosmos.presenter.ResponseCallBack;
 import indivus.cosmos.presenter.SelectCategoryAdapter;
@@ -53,7 +51,7 @@ public class SignUpSelectCategoryActivity extends Activity {
         signup_presenter.getCategoryList(new CategoriesCallBack() {
             @Override
             public void getCategories(ArrayList<CategoryResult.Category> categories) {
-                grid_layout_manager = new GridLayoutManager(SignUpSelectCategoryActivity.this, 2);
+                grid_layout_manager = new GridLayoutManager(SignUpSelectCategoryActivity.this, 3);
                 adapter = new SelectCategoryAdapter(SignUpSelectCategoryActivity.this, categories);
 
                 recycler_view.setLayoutManager(grid_layout_manager);

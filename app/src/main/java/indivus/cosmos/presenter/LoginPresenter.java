@@ -3,10 +3,9 @@ package indivus.cosmos.presenter;
 import android.util.Log;
 
 import indivus.cosmos.application.Indivus;
-import indivus.cosmos.model.data.UserInfo;
 import indivus.cosmos.model.network.NetworkService;
-import indivus.cosmos.model.server.LoginData;
-import indivus.cosmos.model.server.LoginResult;
+import indivus.cosmos.model.server.login.LoginData;
+import indivus.cosmos.model.server.login.LoginResult;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,14 +17,14 @@ import retrofit2.Response;
 public class LoginPresenter {
     private final int success = 0;
     private final int fail = 1;
-    private final int email_already_exists = 2;
-    private final int username_already_exists = 3;
 
-    boolean result;
     NetworkService service;
 
-    public boolean tryLogin(String email, String password, final ResponseCallBack callBack){
+    public LoginPresenter() {
         service = Indivus.getInstance().getNetworkService();
+    }
+
+    public void tryLogin(String email, String password, final ResponseCallBack callBack){
 
         LoginData login_data = new LoginData(email, password);
 
@@ -36,8 +35,11 @@ public class LoginPresenter {
                 if(response.isSuccessful()){
                     //login한 user의 정보를 받아온다
                     if(response.body().message.equals("login success")){
-                        UserInfo.user_token = response.body().token;
+                        Indivus.getInstance().savePreferences(response.body().token);
                         callBack.onSuccess(success);
+                    }
+                    else{
+                        callBack.onError(fail);
                     }
                 }
                 else{
@@ -51,6 +53,5 @@ public class LoginPresenter {
                 Log.i("network error", t.getMessage());
             }
         });
-        return result;
     }
 }

@@ -3,20 +3,19 @@ package indivus.cosmos.presenter;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import indivus.cosmos.application.Indivus;
 import indivus.cosmos.model.network.NetworkService;
-import indivus.cosmos.model.server.CategoryResult;
-import indivus.cosmos.model.server.CheckResult;
-import indivus.cosmos.model.server.EmailCheckData;
-import indivus.cosmos.model.server.NameCheckData;
-import indivus.cosmos.model.server.SelectCategoryData;
-import indivus.cosmos.model.server.SelectCategoryResult;
-import indivus.cosmos.model.server.SignUpData;
-import indivus.cosmos.model.server.SignUpResult;
+import indivus.cosmos.model.server.signup.CategoryResult;
+import indivus.cosmos.model.server.signup.CheckResult;
+import indivus.cosmos.model.server.signup.EmailCheckData;
+import indivus.cosmos.model.server.signup.NameCheckData;
+import indivus.cosmos.model.server.signup.SelectCategoryData;
+import indivus.cosmos.model.server.signup.SelectCategoryResult;
+import indivus.cosmos.model.server.signup.SignUpData;
+import indivus.cosmos.model.server.signup.SignUpResult;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,14 +36,12 @@ public class SignUpPresenter {
 
     NetworkService service;
 
-    public int getUserCode() { return user_code; }
-
-    public ArrayList<CategoryResult.Category> getCategories() { return categories; }
-
     public SignUpPresenter() {
         //Initialize Network
         service = Indivus.getInstance().getNetworkService();
     }
+
+    public int getUserCode() { return user_code; }
 
     public boolean isValidEmail(String email){
         return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches();

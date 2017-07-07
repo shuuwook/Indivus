@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,7 +23,6 @@ public class LoginActivity extends Activity {
     EditText password_edit;
 
     Button login_btn;
-    Button login_facebook_btn;
     Button sign_up_btn;
 
     LoginPresenter login_presenter;
@@ -35,19 +35,19 @@ public class LoginActivity extends Activity {
 
         email_edit = (EditText)findViewById(R.id.login_email_edit);
         password_edit = (EditText)findViewById(R.id.login_password_edit);
-
+        Log.i("aa", "aa");
         login_btn = (Button)findViewById(R.id.login_btn);
-        login_facebook_btn = (Button)findViewById(R.id.login_facebook_btn);
         sign_up_btn = (Button)findViewById(R.id.signup_btn);
 
         login_presenter = new LoginPresenter();
 
-        login_btn.setOnClickListener(new View.OnClickListener() {
-            String email = email_edit.getText().toString();
-            String password = password_edit.getText().toString();
 
+        login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String email = email_edit.getText().toString();
+                String password = password_edit.getText().toString();
+
                 login_presenter.tryLogin(email, password, new ResponseCallBack() {
                     @Override
                     public void onSuccess(int result) {

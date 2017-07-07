@@ -3,10 +3,10 @@
     android:shape="rectangle" android:padding="10dp">
 
     <!-- Background Color -->
-    <solid android:color="#FFFFFF"/>
+    <solid android:color="#efefef"/>
 
     <!-- Border Color -->
-    <stroke android:width="5dp" android:color="#000000" />
+    <stroke android:width="2dp" android:color="#8F9294" />
 
     <!-- Round Corners -->
     <corners

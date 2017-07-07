@@ -3,25 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_home_feed"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         android:enabled="true"
-        android:icon="@drawable/homefeed_1"
+        android:icon="@drawable/homefeed_2"
+        android:titleCondensed=""
         android:title="" />
     <item
         android:id="@+id/action_explorer"
-        app:showAsAction="always"
-        android:icon="@drawable/explore_1"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/explore_2"
         android:title="" />
     <item
         android:id="@+id/action_notice"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         android:enabled="true"
-        android:icon="@drawable/notice_1"
+        android:icon="@drawable/notice_2"
         android:title="" />
     <item
         android:id="@+id/action_my_space"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         android:enabled="true"
-        android:icon="@drawable/myspace_1"
+        android:icon="@drawable/myspace_2"
         android:title="" />
 </menu>

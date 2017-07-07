@@ -1,74 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/post_titlebar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:background="#000000">
-        <Button
-            android:id="@+id/post_back_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:background="@drawable/check" />
-        <TextView
-            android:id="@+id/post_title"
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:text="Title"
-            android:textColor="#ffffff"
-            android:gravity="center_horizontal"
-            android:textSize="13pt"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/post_sub_title"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
-        <TextView
-            android:id="@+id/post_sub_title"
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:text="subTitle"
-            android:textColor="#ffffff"
-            android:textSize="8pt"
-            android:gravity="center_horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/post_title"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            />
-    </android.support.constraint.ConstraintLayout>
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#efefef"
+    tools:context="indivus.cosmos.PostActivity">
 
-    <TextView
-        android:id="@+id/post_summary"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/post_title_appbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_width="0dp"
-        android:background="#000000"
-        android:text="요약 \n가나다라"
-        android:textColor="#ffffff"
-        android:gravity=""
-        app:layout_constraintTop_toBottomOf="@+id/post_titlebar"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/post_recyclerview"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintVertical_bias="0.0" />
+        android:background="#ffffff"
+        >
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/post_title_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#efefef"
+            app:contentInsetStart="0dp"
+            app:contentInsetEnd="0dp"
+            android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
+            >
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/post_title_constraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#1d1a27"
+                >
+                <Button
+                    android:id="@+id/post_back_btn"
+                    android:layout_width="88dp"
+                    android:layout_height="60dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:background="@drawable/back_homefeed"
+                    />
+                <TextView
+                    android:id="@+id/post_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/post_sub_title"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginTop="5dp"
+                    android:text="Title"
+                    android:textColor="#ffffff"
+                    android:textSize="22dp"
+                    android:gravity="center"
+                    />
+                <TextView
+                    android:id="@+id/post_sub_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/post_title"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:text="subtitlle"
+                    android:textColor="#ffffff"
+                    android:textSize="12sp"
+                    android:gravity="center"
+                    />
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.Toolbar>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/post_summary_toollbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:contentInsetStart="0dp"
+            app:contentInsetEnd="0dp"
+            android:background="@drawable/summarybox"
+            >
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/post_summary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <TextView
+                    android:id="@+id/post_summary_explain"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/post_summary_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:text="Synopsis"
+                    android:textSize="15dp"
+                    android:textColor="#ffffff"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="15dp" />
+                <TextView
+                    android:id="@+id/post_summary_content"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/post_summary_explain"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:text="본격 해상액션의 신세계\n무역상이었던 앤더슨은 알아서는 안 될 비밀을 듣고 \항해에 떠난다."
+                    android:textColor="#ffffff"
+                    android:textSize="12dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginStart="15dp" />
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/post_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="50dp">
 
+    </android.support.v7.widget.RecyclerView>
 
-
-
-</android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>

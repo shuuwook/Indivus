@@ -3,6 +3,7 @@ package indivus.cosmos;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -30,21 +31,33 @@ public class VerticalViewPager extends ViewPager {
 
             if (position < -1) { // [-Infinity,-1)
                 // This page is way off-screen to the left.
-                view.setAlpha(0);
+                view.setAlpha(1);
+                // Counteract the default slide transition
+                view.setTranslationX(view.getWidth() * -position + 90);
+
+                //set Y position to swipe in from top
+                float yPosition = position * view.getHeight() -162;
+                view.setTranslationY(yPosition);
 
             } else if (position <= 1) { // [-1,1]
                 view.setAlpha(1);
 
                 // Counteract the default slide transition
-                view.setTranslationX(view.getWidth() * -position);
+                view.setTranslationX(view.getWidth() * -position + 90);
 
                 //set Y position to swipe in from top
-                float yPosition = position * view.getHeight();
+                float yPosition = position * view.getHeight() -162;
                 view.setTranslationY(yPosition);
 
             } else { // (1,+Infinity]
                 // This page is way off-screen to the right.
-                view.setAlpha(0);
+                view.setAlpha(1);
+                // Counteract the default slide transition
+                view.setTranslationX(view.getWidth() * -position + 90);
+
+                //set Y position to swipe in from top
+                float yPosition = position * view.getHeight() -162;
+                view.setTranslationY(yPosition);
             }
         }
     }
