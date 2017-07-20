@@ -25,10 +25,16 @@ public class VerticalViewPager extends ViewPager {
     }
 
     private class VerticalPageTransformer implements ViewPager.PageTransformer {
+        boolean first = true;
 
         @Override
         public void transformPage(View view, float position) {
 
+            if(first){
+                view.setTranslationX(0);
+                view.setTranslationY(90);
+            }
+            first = false;
             if (position < -1) { // [-Infinity,-1)
                 // This page is way off-screen to the left.
                 view.setAlpha(1);
@@ -41,7 +47,6 @@ public class VerticalViewPager extends ViewPager {
 
             } else if (position <= 1) { // [-1,1]
                 view.setAlpha(1);
-
                 // Counteract the default slide transition
                 view.setTranslationX(view.getWidth() * -position + 90);
 

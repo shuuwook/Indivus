@@ -40,8 +40,8 @@
             >
             <ImageView
                 android:id="@+id/myspace_profile_cardview_profile_img"
-                android:layout_width="76dp"
-                android:layout_height="76dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_marginLeft="16dp"
                 android:background="#ffffff"
                 android:src="@drawable/mainkey_c"

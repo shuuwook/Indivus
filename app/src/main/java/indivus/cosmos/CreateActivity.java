@@ -3,6 +3,7 @@ package indivus.cosmos;
 import android.app.Activity;
 import android.content.Intent;
 
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -25,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -39,6 +41,7 @@ import indivus.cosmos.model.server.create.CreateResult;
 import indivus.cosmos.model.server.post.PostCategoryResult;
 import indivus.cosmos.model.server.signup.CategoryResult;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,7 +61,7 @@ public class CreateActivity extends AppCompatActivity {
     String each_content_data;
 
     Uri card_file;
-    ArrayList<Uri> content_file;
+    List<MultipartBody.Part> content_file;
     Uri data;
 
     TabLayout create_tab;
@@ -96,6 +99,7 @@ public class CreateActivity extends AppCompatActivity {
         category_id = "0";
         keycard_list = new ArrayList<>();
         modules = new ArrayList<>();
+        content_file = new ArrayList<MultipartBody.Part>();
 
         create_tab = (TabLayout)findViewById(R.id.create_tab_layout);
 
@@ -218,37 +222,37 @@ public class CreateActivity extends AppCompatActivity {
                     RequestBody comment = RequestBody.create(MediaType.parse("multipart/form_data"), comment_edit.getText().toString());
                     RequestBody content_type = RequestBody.create(MediaType.parse("multipart/form_data"), create_tab.getSelectedTabPosition()+"");
 
-                    //test
-                    RequestBody card_cover = null;
-                    //RequestBody card_cover = getImage(card_file);
+                    //card cover
+                    //partName, file.getName, requestFile
+                    MultipartBody.Part card_cover = MultipartBody.Part.createFormData("card_cover", getImageNameToUri(card_file), getImage(card_file));
 
                     for(Content module : modules) {
                         RequestBody content;
                         //text
                         if (module.type == TEXT) {
                             content = RequestBody.create(MediaType.parse("multipart/form_data"), module.src);
+                            contents.add(content);
                         }
                         //image
                         else {
-                            content = getImage(Uri.parse(module.src));
+                            if(module.src != null) {
+                                MultipartBody.Part file =  MultipartBody.Part.createFormData("contents", getImageNameToUri(Uri.parse(module.src)), getImage(Uri.parse(module.src)));
+
+                                content_file.add(file);
+                            }
                         }
-                        contents.add(content);
                     }
 
                     RequestBody each_content_type = RequestBody.create(MediaType.parse("multipart/form_data"), each_content_data.toString());
                     String token = Indivus.getInstance().getPreferences();
                     Call<CreateResult> createResultCall = service.createPost(token, title, sub_title, explain
-                            , category_id, keycards, comment, content_type, card_cover, contents, each_content_type);
+                            , category_id, keycards, comment, content_type, card_cover, contents, content_file, each_content_type);
 
-                    Log.i("a", "1");
                     createResultCall.enqueue(new Callback<CreateResult>() {
                         @Override
                         public void onResponse(Call<CreateResult> call, Response<CreateResult> response) {
-                            Log.i("a", "2");
                             if(response.isSuccessful()){
-                                Log.i("a", "3");
-                                if(response.message().equals("create success")){
-                                    Log.i("a", "4");
+                                if(response.body().message.equals("create success")){
                                     finish();
                                 }
                             }
@@ -286,6 +290,20 @@ public class CreateActivity extends AppCompatActivity {
             }
         }
     };
+
+    // 선택된 이미지 파일명 가져오기
+    public String getImageNameToUri(Uri data) {
+        String[] proj = {MediaStore.Images.Media.DATA};
+        Cursor cursor = managedQuery(data, proj, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+
+        cursor.moveToFirst();
+
+        String imgPath = cursor.getString(column_index);
+        String imgName = imgPath.substring(imgPath.lastIndexOf("/") + 1);
+
+        return imgName;
+    }
 
     // 선택된 이미지 가져오기
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

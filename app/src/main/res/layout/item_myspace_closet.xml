@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/item_myspace_closet_scrollivew_item_cardview"
     android:layout_width="88dp"
-    android:layout_height="110dp"
+    android:layout_height="120dp"
     card_view:cardUseCompatPadding="true"
     card_view:cardCornerRadius="8dp"
     card_view:cardBackgroundColor="#efefef"
@@ -22,7 +22,7 @@
         <ImageView
             android:id="@+id/item_myspace_closet_img"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="85dp"
             android:background="@drawable/background_white_top_round_box_r8"
             android:src="@drawable/folderplus"
             android:scaleType="centerCrop"

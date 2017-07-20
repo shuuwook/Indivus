@@ -49,10 +49,12 @@ public class FollowingFragment extends Fragment {
                 adapter.updateCardList(result.result);
                 adapter.notifyDataSetChanged();
             }
+
             @Override
-            public void clickAwesome(int awesome_count) {
-                //null
+            public void clickAwesome(int awesome_count, boolean like) {
+
             }
+
             @Override
             public void clickCollect(int collect_count) {
                 //null

@@ -4,6 +4,8 @@ import android.util.Log;
 
 import indivus.cosmos.application.Indivus;
 import indivus.cosmos.model.network.NetworkService;
+import indivus.cosmos.model.server.like.LikeResult;
+import indivus.cosmos.model.server.like.PostLikeData;
 import indivus.cosmos.model.server.post.CardCountData;
 import indivus.cosmos.model.server.post.CardCountResult;
 import indivus.cosmos.model.server.post.HomeCardResult;
@@ -71,14 +73,18 @@ public class HomeFeedPresenter {
 
     public void clickAwesome(int post_id, final HomeFeedCallBack callBack){
         String token = Indivus.getInstance().getPreferences();
-        CardCountData count_data = new CardCountData(post_id);
-        Call<CardCountResult> cardCountResultCall = service.clickAwesome(token, count_data);
-        cardCountResultCall.enqueue(new Callback<CardCountResult>() {
+        PostLikeData data = new PostLikeData(post_id);
+        Call<LikeResult> likeResultCall = service.clickPostLike(token, data);
+        likeResultCall.enqueue(new Callback<LikeResult>() {
             @Override
-            public void onResponse(Call<CardCountResult> call, Response<CardCountResult> response) {
+            public void onResponse(Call<LikeResult> call, Response<LikeResult> response) {
                 if(response.isSuccessful()){
-                    if(response.body().message.equals("success"))
-                    callBack.clickAwesome(response.body().count);
+                    if(response.body().message.equals("like success")) {
+                        callBack.clickAwesome(response.body().like_counts, true);
+                    }
+                    else if(response.body().message.equals("none like susccess")){
+                        callBack.clickAwesome(response.body().like_counts, false);
+                    }
                 }
                 else{
                     int statusCode = response.code();
@@ -87,7 +93,7 @@ public class HomeFeedPresenter {
             }
 
             @Override
-            public void onFailure(Call<CardCountResult> call, Throwable t) {
+            public void onFailure(Call<LikeResult> call, Throwable t) {
                 Log.i("network error", t.getMessage());
             }
         });

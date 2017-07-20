@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,7 +34,8 @@ public class ReplyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reply);
-
+        Log.i("reply", "1");
+        reply_recycler = (RecyclerView)findViewById(R.id.reply_recyclerview);
        post_id = getIntent().getIntExtra("post_id", 0);
 
         reply_layout_manager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
@@ -45,6 +47,7 @@ public class ReplyActivity extends AppCompatActivity {
                 reply_adapter = new ReplyAdapter(getApplicationContext(), result);
                 reply_recycler.setAdapter(reply_adapter);
                 reply_recycler.setLayoutManager(reply_layout_manager);
+                reply_adapter.notifyDataSetChanged();
             }
             @Override
             public void sendReply() {

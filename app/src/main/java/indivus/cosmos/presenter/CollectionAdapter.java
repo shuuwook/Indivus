@@ -49,7 +49,9 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.Co
         }
         //콜렉션
         else {
-            Glide.with(context).load(Uri.parse(collection_list.get(position).collection_cover)).thumbnail(0.1f).into(holder.collection_img);
+            if(collection_list.get(position).collection_cover != null) {
+                Glide.with(context).load(Uri.parse(collection_list.get(position).collection_cover)).thumbnail(0.1f).into(holder.collection_img);
+            }
             holder.collection_title.setText(collection_list.get(position).collection_name);
             holder.collection_count.setText(collection_list.get(position).collection_counts+"");
         }

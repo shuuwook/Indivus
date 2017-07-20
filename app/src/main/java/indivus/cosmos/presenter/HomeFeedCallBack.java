@@ -10,7 +10,7 @@ public interface HomeFeedCallBack {
 
     void getHomeCard(HomeCardResult result);
 
-    void clickAwesome(int awesome_count);
+    void clickAwesome(int awesome_count, boolean like);
     void clickCollect(int collect_count);
 
     //public void accessDenied();

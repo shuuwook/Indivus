@@ -1,5 +1,6 @@
 package indivus.cosmos.model.network;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import indivus.cosmos.model.server.MessageResult;
@@ -11,6 +12,12 @@ import indivus.cosmos.model.server.create.CreateResult;
 import indivus.cosmos.model.server.explorer.ExplorerContentResult;
 import indivus.cosmos.model.server.explorer.ExplorerCreatorResult;
 import indivus.cosmos.model.server.explorer.ExplorerData;
+import indivus.cosmos.model.server.follow.FollowerResult;
+import indivus.cosmos.model.server.follow.FollowingIdData;
+import indivus.cosmos.model.server.like.CommentDetailLikeData;
+import indivus.cosmos.model.server.like.CommentLikeData;
+import indivus.cosmos.model.server.like.LikeResult;
+import indivus.cosmos.model.server.like.PostLikeData;
 import indivus.cosmos.model.server.login.LoginData;
 import indivus.cosmos.model.server.login.LoginResult;
 import indivus.cosmos.model.server.notice.NoticeIdData;
@@ -40,6 +47,7 @@ import indivus.cosmos.model.server.signup.SignUpData;
 import indivus.cosmos.model.server.signup.SignUpResult;
 import indivus.cosmos.model.server.workroom.CreateWorkRoomSeriesData;
 import indivus.cosmos.model.server.workroom.WorkRoomResult;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -91,9 +99,19 @@ public interface NetworkService {
     @GET("/follow-feed")
     Call<HomeCardResult> getFollowingCardResult(@Header("Authorization") String authorization);
 
-    //Awesome 누름
-    @POST("/post")
-    Call<CardCountResult> clickAwesome(@Header("Authorization") String authorization, @Body CardCountData click);
+    /**
+     *<LIKE>
+     */
+    //post like 누름
+    //like success, none like success
+    @POST("/like")
+    Call<LikeResult> clickPostLike(@Header("Authorization") String authorization, @Body PostLikeData data);
+    @POST("/like")
+    Call<LikeResult> clickCommentLike(@Header("Authorization") String authorization, @Body CommentLikeData data);
+    @POST("/like")
+    Call<LikeResult> clickCommentDetailLike(@Header("Authorization") String authorizatioin, @Body CommentDetailLikeData data);
+
+
     //Collect 누름
     @POST("/post")
     Call<CardCountResult> clickCollect(@Header("Authorization") String authorization, @Body CardCountData click);
@@ -102,13 +120,13 @@ public interface NetworkService {
      * <COMMENT>
      */
     //Comment 누름
-    @GET("/comment/view")
+    @POST("/comment/view")
     Call<ReplyResult> getReply(@Header("Authorization") String authorization, @Body ReplyPostId post_id);
     //Comment 작성
-    @GET("/comment/write")
+    @POST("/comment/write")
     Call<ReplyMessage> writeReply(@Header("Authorization") String authorization, @Body ReplyWrite reply_content);
     //Comment comment 작성
-    @GET("/comment_detail/view")
+    @POST("/comment_detail/view")
     Call<ReplyDetailResult> getReplyDetail(@Header("Authorization") String authorization, @Body ReplyDetailData comment_id);
 
     /**
@@ -146,10 +164,10 @@ public interface NetworkService {
             , @Part("keycard") List<RequestBody> keycard
             , @Part("comment")RequestBody comment
             , @Part("content_type")RequestBody content_type
-            , @Part("card_cover")RequestBody card_cover
+            , @Part MultipartBody.Part card_cover
             , @Part("contents") List<RequestBody> contents
+            , @Part List<MultipartBody.Part> files
             , @Part("each_content_type")RequestBody each_content_type);
-
 
     /**
      *<CATEGORY & KEYCARD>
@@ -197,5 +215,15 @@ public interface NetworkService {
      */
     @GET("/closet/view")
     Call<ClosetResult> getCloset(@Header("Authorization") String authorization);
+
+    /**
+     *<FOLLOW & FOLLOWING>
+     */
+    @POST("/friends/follow")
+    Call<MessageResult> follow(@Header("Authorizatioin") String authorization, @Body FollowingIdData following_id);
+    @GET("/friends/follower/list")
+    Call<FollowerResult> getFollower(@Header("Authorization") String authorization);
+    @GET("/friends/following/list")
+    Call<FollowerResult> getFollowing(@Header("Authorization") String authorizatioin);
 }
 

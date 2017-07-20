@@ -83,25 +83,27 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.NoticeView
 
     public void removeNotice(final int position){
         String token = Indivus.getInstance().getPreferences();
-        NoticeIdData data = new NoticeIdData(notice_list.get(position).notice_id);
+        if(position > notice_list.size()) {
+            NoticeIdData data = new NoticeIdData(notice_list.get(position).notice_id);
 
-        Call<MessageResult> noticeCall = service.removeNotice(token, data);
-        noticeCall.enqueue(new Callback<MessageResult>() {
-            @Override
-            public void onResponse(Call<MessageResult> call, Response<MessageResult> response) {
-                if(response.isSuccessful()){
-                    if(response.body().message.equals("delete success")){
-                        Log.i("delete", "message");
-                        notice_list.remove(position);
+            Call<MessageResult> noticeCall = service.removeNotice(token, data);
+            noticeCall.enqueue(new Callback<MessageResult>() {
+                @Override
+                public void onResponse(Call<MessageResult> call, Response<MessageResult> response) {
+                    if (response.isSuccessful()) {
+                        if (response.body().message.equals("delete success")) {
+                            Log.i("delete", "message");
+                            notice_list.remove(position);
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<MessageResult> call, Throwable t) {
+                @Override
+                public void onFailure(Call<MessageResult> call, Throwable t) {
 
-            }
-        });
+                }
+            });
+        }
     }
 
     public class NoticeViewHolder extends RecyclerView.ViewHolder{

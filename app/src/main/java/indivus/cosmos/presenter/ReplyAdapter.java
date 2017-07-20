@@ -3,6 +3,7 @@ package indivus.cosmos.presenter;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ public class ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.ReplyViewHol
     public ReplyAdapter(Context context, ReplyResult result) {
         this.context = context;
         reply_result = result.result;
+        Log.i("reply", reply_result.size()+"");
     }
 
     @Override
@@ -41,7 +43,7 @@ public class ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.ReplyViewHol
     @Override
     public void onBindViewHolder(ReplyViewHolder holder, int position) {
         ReplyResult.Reply result = reply_result.get(position);
-
+        Log.i("reply", result.contents);
         ImageView profile_img = holder.profile_img;
         Glide.with(context).load(Uri.parse(result.getProfilePhoto())).thumbnail(0.1f).into(profile_img);
 
@@ -55,10 +57,10 @@ public class ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.ReplyViewHol
         reply_time.setText(Indivus.getRelativeDate(result.getCommentDate()));
 
         TextView reply_reply_count = holder.reply_reply_count;
-        reply_reply_count.setText(result.getCommentdetail_counts());
+        reply_reply_count.setText(result.getCommentdetail_counts()+"");
 
         TextView reply_bulb_count = holder.reply_bulb_count;
-        reply_bulb_count.setText(result.getLikeCounts());
+        reply_bulb_count.setText(result.getLikeCounts()+"");
 
         Button reply_bulb_btn = holder.reply_bulb_btn;
         reply_bulb_btn.setOnClickListener(new View.OnClickListener() {

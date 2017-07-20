@@ -50,9 +50,10 @@ public class CurationFragment extends Fragment {
                 adapter.updateCardList(result.result);
                 adapter.notifyDataSetChanged();
             }
+
             @Override
-            public void clickAwesome(int awesome_count) {
-                //null
+            public void clickAwesome(int awesome_count, boolean like) {
+
             }
             @Override
             public void clickCollect(int collect_count) {
@@ -61,10 +62,10 @@ public class CurationFragment extends Fragment {
         });
 
         view_pager = (VerticalViewPager) curation_view.findViewById(R.id.curation_pager);
-        view_pager.setAdapter(adapter);
         view_pager.setClipToPadding(false);
         view_pager.setPadding(90, 162, 90, 96);
         view_pager.setPageMargin(54);
+        view_pager.setAdapter(adapter);
 
         return curation_view;
     }

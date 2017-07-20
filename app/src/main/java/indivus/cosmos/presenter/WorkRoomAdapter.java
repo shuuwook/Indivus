@@ -60,7 +60,9 @@ public class WorkRoomAdapter extends RecyclerView.Adapter<WorkRoomAdapter.WorkRo
         }
         //시리즈
         else{
-            Glide.with(context).load(Uri.parse(series_list.get(position).card_cover)).thumbnail(0.1f).into(holder.work_room_img);
+            if(series_list.get(position).card_cover != null) {
+                Glide.with(context).load(Uri.parse(series_list.get(position).card_cover)).thumbnail(0.1f).into(holder.work_room_img);
+            }
             holder.work_room_title.setText(series_list.get(position).series_name);
             holder.work_room_count.setText(series_list.get(position).series_counts+"");
         }

@@ -1,15 +1,16 @@
 package indivus.cosmos.model.server.reply;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by seowo on 2017-07-04.
  */
 
-public class ReplyDetailResult {
+public class ReplyDetailResult implements Serializable {
     public ArrayList<ReplyDetail> result;
 
-    public class ReplyDetail{
+    public class ReplyDetail implements Serializable{
         public int comment_detail_id;
         public int comment_id;
         public int ID;

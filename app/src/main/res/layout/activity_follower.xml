@@ -6,15 +6,16 @@
     >
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/summarybox"
-        android:text="팔로워"
-        android:textSize="18dp"
-        android:textColor="#ffffff"
-        android:padding="12dp"
         android:gravity="center_horizontal"
-        />
+        android:padding="12dp"
+        android:text="팔로워"
+        android:textColor="#ffffff"
+        android:textSize="18dp" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/follower_recyclerview"
         android:layout_width="match_parent"

@@ -14,14 +14,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 
 import java.util.ArrayList;
 
 import indivus.cosmos.R;
+import indivus.cosmos.ReplyActivity;
 import indivus.cosmos.SeriesActivity;
 import indivus.cosmos.model.data.PostContent;
 import indivus.cosmos.model.data.PostRecommend;
+import indivus.cosmos.model.server.post.HomeCardResult;
+import indivus.cosmos.model.server.reply.ReplyDetailResult;
+import indivus.cosmos.model.server.reply.ReplyResult;
 import indivus.cosmos.model.server.series.SeriesResult;
 import indivus.cosmos.model.server.post.PostResult;
 import indivus.cosmos.view.post.ButtonViewHolder;
@@ -51,8 +54,11 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     ArrayList<PostRecommend> post_recommend_list;
     ArrayList<SeriesResult.PostSeries> post_series;
     int post_size;
+    int post_id;
 
     PostContentPresenter presenter;
+    ReplyPresenter reply_presenter;
+    HomeFeedPresenter bulb_presenter;
 
     public PostAdapter(Context context, PostResult result) {
         this.context = context;
@@ -61,6 +67,7 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         post_result = result;
 
+        post_id = result.post_id;
         post_contents = result.contents;
         post_size = post_contents.size();
 
@@ -219,17 +226,58 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             comment.setText(post_result.comment);
         }
         else if(holder instanceof ButtonViewHolder){
-            TextView bulb_count = ((ButtonViewHolder)holder).bulb_count;
+            final TextView bulb_count = ((ButtonViewHolder)holder).bulb_count;
             bulb_count.setText(post_result.like_counts + "");
             TextView reply_count = ((ButtonViewHolder)holder).reply_count;
             reply_count.setText(post_result.comment_counts + "");
             TextView collect_count = ((ButtonViewHolder)holder).collect_count;
             collect_count.setText(post_result.collection_counts + "");
 
-            Button bulb_btn = ((ButtonViewHolder)holder).bulb_btn;
-            //bulb_btn.setOnClickListener();
+            final Button bulb_btn = ((ButtonViewHolder)holder).bulb_btn;
+            bulb_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    bulb_presenter.clickAwesome(post_id, new HomeFeedCallBack() {
+                        @Override
+                        public void getHomeCard(HomeCardResult result) {
+                            //null
+                        }
+                        @Override
+                        public void clickAwesome(int awesome_count, boolean like) {
+                            if(like) bulb_btn.setBackgroundResource(R.drawable.detailview_bulblignt);
+                            else bulb_btn.setBackgroundResource(R.drawable.detailview_bulb);
+                            bulb_count.setText(awesome_count+"");
+                        }
+                        @Override
+                        public void clickCollect(int collect_count) {
+                            //null
+                        }
+                    });
+                }
+            });
             Button reply_btn = ((ButtonViewHolder)holder).reply_btn;
-            //reply_btn.setOnClickListener();
+            reply_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    reply_presenter.getReply(post_id, new ReplyCallBack() {
+                        @Override
+                        public void getReply(ReplyResult result) {
+                            Intent intent = new Intent(context, ReplyActivity.class);
+                            intent.putExtra("post_id", post_id);
+                            context.startActivity(intent);
+                        }
+                        @Override
+                        public void sendReply() {
+                        }
+                        @Override
+                        public void getReplyDetail(ReplyDetailResult result) {
+                        }
+                        @Override
+                        public void sendReplyDetail() {
+                        }
+                    });
+                }
+            });
             Button collect_btn = ((ButtonViewHolder)holder).collect_btn;
             //collect_btn.setOnClickListener();
         }

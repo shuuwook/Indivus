@@ -1,7 +1,6 @@
 package indivus.cosmos;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
@@ -9,11 +8,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,15 +19,16 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import indivus.cosmos.application.Indivus;
 import indivus.cosmos.model.data.Card;
 import indivus.cosmos.model.server.post.HomeCardResult;
+import indivus.cosmos.model.server.reply.ReplyDetailResult;
+import indivus.cosmos.model.server.reply.ReplyResult;
 import indivus.cosmos.presenter.HomeFeedCallBack;
 import indivus.cosmos.presenter.HomeFeedPresenter;
+import indivus.cosmos.presenter.PostContentPresenter;
+import indivus.cosmos.presenter.ReplyCallBack;
+import indivus.cosmos.presenter.ReplyPresenter;
 
 /**
  * Created by seowo on 2017-06-28.
@@ -64,7 +63,11 @@ public class HomeCardFragment extends Fragment{
     TextView card_comment_count;
     TextView card_collect_count;
 
+    Button card_btn;
+
     HomeFeedPresenter presenter;
+    ReplyPresenter reply_presenter;
+    PostContentPresenter post_presenter;
 
     @Nullable
     @Override
@@ -73,7 +76,13 @@ public class HomeCardFragment extends Fragment{
 
         card = (Card)getArguments().get("card");
 
+        presenter = new HomeFeedPresenter();
+        reply_presenter = new ReplyPresenter();
+        post_presenter = new PostContentPresenter();
+
         post_id = card.post_id;
+
+        card_btn = (Button)card_view.findViewById(R.id.home_card_btn);
 
         card_image = (ImageView)card_view.findViewById(R.id.card_image);
         Glide.with(card_view.getContext()).load(Uri.parse(card.card_cover)).thumbnail(0.1f).into(card_image);
@@ -82,6 +91,14 @@ public class HomeCardFragment extends Fragment{
         card_image.setBackground(drawable);
         card_image.setClipToOutline(true);
 
+        card_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), PostActivity.class);
+                intent.putExtra("post_id", post_id);
+                startActivity(intent);
+            }
+        });
         card_title = (TextView)card_view.findViewById(R.id.card_title);
         card_title.setText(card.title);
 
@@ -146,8 +163,10 @@ public class HomeCardFragment extends Fragment{
                         //null
                     }
                     @Override
-                    public void clickAwesome(int awesome_count) {
-                        card_light_count.setText(awesome_count);
+                    public void clickAwesome(int awesome_count, boolean like) {
+                        if(like) card_light_btn.setBackgroundResource(R.drawable.detailview_bulblignt);
+                        else card_light_btn.setBackgroundResource(R.drawable.detailview_bulb);
+                        card_light_count.setText(awesome_count+"");
                     }
                     @Override
                     public void clickCollect(int collect_count) {
@@ -160,7 +179,23 @@ public class HomeCardFragment extends Fragment{
         card_comment_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //댓글 액티비티로 넘어감
+                reply_presenter.getReply(post_id, new ReplyCallBack() {
+                    @Override
+                    public void getReply(ReplyResult result) {
+                        Intent intent = new Intent(getActivity(), ReplyActivity.class);
+                        intent.putExtra("post_id", post_id);
+                        startActivity(intent);
+                    }
+                    @Override
+                    public void sendReply() {
+                    }
+                    @Override
+                    public void getReplyDetail(ReplyDetailResult result) {
+                    }
+                    @Override
+                    public void sendReplyDetail() {
+                    }
+                });
             }
         });
         card_collect_btn = (ImageButton)card_view.findViewById(R.id.card_collect_btn);
@@ -173,7 +208,7 @@ public class HomeCardFragment extends Fragment{
                         //null
                     }
                     @Override
-                    public void clickAwesome(int awesome_count) {
+                    public void clickAwesome(int awesome_count, boolean like) {
                         //null
                     }
                     @Override

@@ -61,6 +61,7 @@ public class SignUpPresenter {
                 else{
                     int statusCode = response.code();
                     Log.i("server status", "CODE : " + statusCode);
+                    callBack.onError(email_already_exists);
                 }
             }
             @Override
@@ -89,6 +90,7 @@ public class SignUpPresenter {
                 else{
                     int statusCode = response.code();
                     Log.i("server status", "CODE : " + statusCode);
+                    callBack.onError(username_already_exists);
                 }
             }
             @Override

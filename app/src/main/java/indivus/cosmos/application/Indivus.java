@@ -24,8 +24,8 @@ public class Indivus extends Application {
 
     private static Indivus indivus;
 
-    private static String baseUrl = "http://192.168.200.165:3000";
-    //private static String baseUrl = "http://13.124.131.26:3000";
+    //private static String baseUrl = "http://192.168.200.165:3000";
+    private static String baseUrl = "http://13.124.131.26:3000";
 
     private NetworkService network_service;
 
